@@ -3,13 +3,13 @@ from Adafruit_IO import MQTTClient
 
 class Adafruit_MQTT:
     AIO_FEED_IDs = ["button1", 	"button2"]
-    AIO_USERNAME = "NPNLab_"
-    AIO_KEY = "aio_"
+    AIO_USERNAME = "chocomint"
+    AIO_KEY = "28ve0htv!!!"
 
-    def connected(self, client):
+    def connect(self):
         print("Connected ...")
         for feed in self.AIO_FEED_IDs:
-            client.subscribe(feed)
+            self.client.subscribe(feed)
 
     def subscribe(self, client , userdata , mid , granted_qos):
         print("Subscribed...")
@@ -22,11 +22,4 @@ class Adafruit_MQTT:
         print("Received: " + payload)
 
     def __init__(self):
-        client = MQTTClient(self.AIO_USERNAME , self.AIO_KEY)
-        client.on_connect = self.connected
-        client.on_disconnect = self.disconnected
-        client.on_message = self.message
-        client.on_subscribe = self.subscribe
-        client.connect()
-        client.loop_background()
-
+        self.client = MQTTClient(self.AIO_USERNAME , self.AIO_KEY)
