@@ -14,9 +14,10 @@ class_names = open("mask_model/labels.txt", "r").readlines()
 # CAMERA can be 0 or 1 based on default camera of your computer
 camera = cv2.VideoCapture(0)
 
-while True:
-    # Grab the webcamera's image.
-    ret, image = camera.read()
+def detect():
+    while True:
+        # Grab the webcamera's image.
+        ret, image = camera.read()
 
     # Resize the raw image into (224-height,224-width) pixels
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
@@ -47,5 +48,7 @@ while True:
     if keyboard_input == 27:
         break
 
-camera.release()
-cv2.destroyAllWindows()
+    return class_name
+
+    camera.release()
+    cv2.destroyAllWindows()
