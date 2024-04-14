@@ -1,10 +1,12 @@
 import sys
 from Adafruit_IO import MQTTClient
 import json
-import paho.mqtt.client as mqtt
 
-class Adafruit_MQTT:
-    AIO_FEED_IDs = ["sensor1", "sensor3", "button1", "button2"]
+import serial.tools.list_ports
+
+from uart import getPort, writeData
+class adafruit_workflow:
+    AIO_FEED_IDs = ["sensor1", "sensor2", "sensor3", "button1", "button2"]
 
     config = json.load(open("config.json"))
     AIO_USERNAME = config['IO_USERNAME']
@@ -25,7 +27,21 @@ class Adafruit_MQTT:
     def message(self, client, feed_id, payload):
         print(f"Feed: {feed_id}. Received: {payload}")
 
-    def __init__(self):
+        if feed_id == "button1":
+            if payload == "0":
+                writeData(self.ser, "1")
+            else:
+                writeData(self.ser, "2")
+        if feed_id == "button2":
+                if payload == "0":
+                    writeData(self.ser, "3")
+                else:
+                    writeData(self.ser, "4")
+
+    def __init__(self, sensor=False):
+        if sensor and getPort():
+            self.ser = serial.Serial( port=getPort(), baudrate=115200)
+
         self.client = MQTTClient(self.AIO_USERNAME, self.AIO_KEY)
         self.client.on_connect = self.connected
         self.client.on_disconnect = self.disconnected

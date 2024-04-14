@@ -15,9 +15,8 @@ class_names = open("mask_model/labels.txt", "r").readlines()
 camera = cv2.VideoCapture(0)
 
 def detect():
-    while True:
-        # Grab the webcamera's image.
-        ret, image = camera.read()
+    # Grab the webcamera's image.
+    ret, image = camera.read()
 
     # Resize the raw image into (224-height,224-width) pixels
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
@@ -39,14 +38,7 @@ def detect():
 
     # Print prediction and confidence score
     print("Class:", class_name[2:], end="")
-    print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
-
-    # Listen to the keyboard for presses.
-    keyboard_input = cv2.waitKey(1)
-
-    # 27 is the ASCII for the esc key on your keyboard.
-    if keyboard_input == 27:
-        break
+    print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")   
 
     return class_name
 

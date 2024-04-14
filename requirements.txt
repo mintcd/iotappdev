@@ -3,3 +3,4 @@ keras==2.15.0
 numpy==1.26.4
 opencv_python==4.9.0.80
 paho-mqtt==1.6.1
+pyserial
