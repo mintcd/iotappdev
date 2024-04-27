@@ -17,6 +17,18 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MQTTHelper {
     public MqttAndroidClient mqttAndroidClient;
+
+      // Your actual feeds
+  public final String[] arrayTopics = {
+
+  };
+
+  final String clientId = "";
+  // Your actual username
+  final String username = "";
+  // Your actual password
+  final String password = ""; ``
+
     final String serverUri = "tcp://io.adafruit.com:1883";
 
     public MQTTHelper(Context context){
